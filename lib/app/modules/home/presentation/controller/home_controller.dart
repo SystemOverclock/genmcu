@@ -8,11 +8,12 @@ class HomeController extends GetxController {
   RxList<Movie> moviesByName = <Movie>[].obs;
   RxList<Movie> moviesNewerByReleaseDate = <Movie>[].obs;
   RxList<Movie> moviesOlderByReleaseDate = <Movie>[].obs;
+  RxBool splashEnabled = true.obs;
 
   @override
   Future<void> onInit() async {
     var request = await AppHttpRequest.get(
-        url: "scripts4u.free.beeceptor.com", path: "/movies");
+        url: "genmcu.free.beeceptor.com", path: "/movies");
     if (request.statusCode == 200) {
       var data = json.decode(request.body);
       for (var movie in data["mcu"]) {
@@ -27,6 +28,10 @@ class HomeController extends GetxController {
       moviesOlderByReleaseDate
           .sort((a, b) => a.releaseDate.compareTo(b.releaseDate));
     }
+    Future.delayed(
+      const Duration(seconds: 3),
+      () => splashEnabled.value = false,
+    );
     super.onInit();
   }
 }

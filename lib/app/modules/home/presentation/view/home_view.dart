@@ -85,10 +85,20 @@ class HomeView extends GetView<HomeController> {
                 ],
               ),
             ),
-            Image.asset(
-              "assets/images/marvel-logo.gif",
-              fit: BoxFit.fitHeight,
-              height: AppScreenSize.screenHeight,
+            Obx(
+              () => SizedBox(
+                height: controller.splashEnabled.value
+                    ? AppScreenSize.screenHeight
+                    : 0,
+                width: controller.splashEnabled.value
+                    ? AppScreenSize.screenWidth
+                    : 0,
+                child: Image.asset(
+                  "assets/images/marvel-logo.gif",
+                  fit: BoxFit.fitHeight,
+                  height: AppScreenSize.screenHeight,
+                ),
+              ),
             ),
           ],
         ),
